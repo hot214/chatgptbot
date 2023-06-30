@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import Layout from '@/components/layout';
+// import Layout from '@/components/layout';
 import styles from '@/styles/Home.module.css';
 import { Message } from '@/types/chat';
 import Image from 'next/image';
@@ -122,9 +122,9 @@ export default function Home() {
 
   return (
     <>
-      <Layout>
+      {/* <Layout> */}
         <div className="mx-auto flex flex-col gap-4">
-          <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
+          <h1 className="text-2xl mt-4 font-bold leading-[1.1] tracking-tighter text-center">
             Chat With Your Docs
           </h1>
           <main className={styles.main}>
@@ -179,7 +179,7 @@ export default function Home() {
                           className="p-5"
                           key={`sourceDocsAccordion-${index}`}
                         >
-                          <Accordion
+                          {/* <Accordion
                             type="single"
                             collapsible
                             className="flex-col"
@@ -201,7 +201,7 @@ export default function Home() {
                                 </AccordionItem>
                               </div>
                             ))}
-                          </Accordion>
+                          </Accordion> */}
                         </div>
                       )}
                     </>
@@ -265,7 +265,7 @@ export default function Home() {
             Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
           </a>
         </footer> */}
-      </Layout>
+      {/* </Layout> */}
     </>
   );
 }
