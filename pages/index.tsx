@@ -123,63 +123,68 @@ export default function Home() {
   return (
     <>
       {/* <Layout> */}
-        <div className="mx-auto flex flex-col gap-4">
-          <h1 className="text-2xl mt-4 font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Your Docs
-          </h1>
-          <main className={styles.main}>
-            <div className={styles.cloud}>
-              <div ref={messageListRef} className={styles.messagelist}>
-                {messages.map((message, index) => {
-                  let icon;
-                  let className;
-                  if (message.type === 'apiMessage') {
-                    icon = (
-                      <Image
-                        key={index}
-                        src="/bot-image.png"
-                        alt="AI"
-                        width="40"
-                        height="40"
-                        className={styles.boticon}
-                        priority
-                      />
-                    );
-                    className = styles.apimessage;
-                  } else {
-                    icon = (
-                      <Image
-                        key={index}
-                        src="/usericon.png"
-                        alt="Me"
-                        width="30"
-                        height="30"
-                        className={styles.usericon}
-                        priority
-                      />
-                    );
-                    // The latest message sent by the user will be animated while waiting for a response
-                    className =
-                      loading && index === messages.length - 1
-                        ? styles.usermessagewaiting
-                        : styles.usermessage;
-                  }
-                  return (
-                    <>
-                      <div key={`chatMessage-${index}`} className={className}>
-                        {icon}
-                        <div className={styles.markdownanswer}>
-                          <ReactMarkdown linkTarget="_blank">
-                            {message.message}
-                          </ReactMarkdown>
-                        </div>
+      <div className="mx-auto flex flex-col gap-4">
+        <div className="flex items-center justify-center mt-12">
+          <Image
+            src="/CWAiW_l.png"
+            alt="AI"
+            width="150"
+            height="100"
+            className={styles.boticon}
+            priority
+          />
+        </div>
+        <main className={styles.main}>
+          <div className={styles.cloud}>
+            <div ref={messageListRef} className={styles.messagelist}>
+              {messages.map((message, index) => {
+                let icon;
+                let className;
+                if (message.type === 'apiMessage') {
+                  icon = (
+                    <Image
+                      key={index}
+                      src="/bot-image.png"
+                      alt="AI"
+                      width="40"
+                      height="40"
+                      className={styles.boticon}
+                      priority
+                    />
+                  );
+                  className = styles.apimessage;
+                } else {
+                  icon = (
+                    <Image
+                      key={index}
+                      src="/CWAiW_l.png"
+                      alt="Me"
+                      width="80"
+                      height="80"
+                      className={styles.usericon}
+                      priority
+                    />
+                  );
+                  // The latest message sent by the user will be animated while waiting for a response
+                  className =
+                    loading && index === messages.length - 1
+                      ? styles.usermessagewaiting
+                      : styles.usermessage;
+                }
+                return (
+                  <>
+                    <div key={`chatMessage-${index}`} className={className}>
+                      {icon}
+                      <div className={styles.markdownanswer}>
+                        <ReactMarkdown linkTarget="_blank">
+                          {message.message}
+                        </ReactMarkdown>
                       </div>
-                      {message.sourceDocs && (
-                        <div
-                          className="p-5"
-                          key={`sourceDocsAccordion-${index}`}
-                        >
-                          {/* <Accordion
+                    </div>
+                    {message.sourceDocs && (
+                      <div className="p-5" key={`sourceDocsAccordion-${index}`}>
+                        {
+                          <Accordion
                             type="single"
                             collapsible
                             className="flex-col"
@@ -201,66 +206,67 @@ export default function Home() {
                                 </AccordionItem>
                               </div>
                             ))}
-                          </Accordion> */}
-                        </div>
-                      )}
-                    </>
-                  );
-                })}
-              </div>
-            </div>
-            <div className={styles.center}>
-              <div className={styles.cloudform}>
-                <form onSubmit={handleSubmit}>
-                  <textarea
-                    disabled={loading}
-                    onKeyDown={handleEnter}
-                    ref={textAreaRef}
-                    autoFocus={false}
-                    rows={1}
-                    maxLength={512}
-                    id="userInput"
-                    name="userInput"
-                    placeholder={
-                      loading
-                        ? 'Waiting for response...'
-                        : 'What is the condition code MIMA?'
-                    }
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className={styles.textarea}
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className={styles.generatebutton}
-                  >
-                    {loading ? (
-                      <div className={styles.loadingwheel}>
-                        <LoadingDots color="#000" />
+                          </Accordion>
+                        }
                       </div>
-                    ) : (
-                      // Send icon SVG in input field
-                      <svg
-                        viewBox="0 0 20 20"
-                        className={styles.svgicon}
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                      </svg>
                     )}
-                  </button>
-                </form>
-              </div>
+                  </>
+                );
+              })}
             </div>
-            {error && (
-              <div className="border border-red-400 rounded-md p-4">
-                <p className="text-red-500">{error}</p>
-              </div>
-            )}
-          </main>
-        </div>
-        {/* <footer className="m-auto p-4">
+          </div>
+          <div className={styles.center}>
+            <div className={styles.cloudform}>
+              <form onSubmit={handleSubmit}>
+                <textarea
+                  disabled={loading}
+                  onKeyDown={handleEnter}
+                  ref={textAreaRef}
+                  autoFocus={false}
+                  rows={1}
+                  maxLength={512}
+                  id="userInput"
+                  name="userInput"
+                  placeholder={
+                    loading
+                      ? 'Waiting for response...'
+                      : 'What is the condition code MIMA?'
+                  }
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className={styles.textarea}
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={styles.generatebutton}
+                >
+                  {loading ? (
+                    <div className={styles.loadingwheel}>
+                      <LoadingDots color="#000" />
+                    </div>
+                  ) : (
+                    // Send icon SVG in input field
+                    <svg
+                      viewBox="0 0 20 20"
+                      className={styles.svgicon}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                    </svg>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+          {error && (
+            <div className="border border-red-400 rounded-md p-4">
+              <p className="text-red-500">{error}</p>
+            </div>
+          )}
+        </main>
+      </div>
+      {/* <footer className="m-auto p-4">
           <a href="https://twitter.com/mayowaoshin">
             Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
           </a>

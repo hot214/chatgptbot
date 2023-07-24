@@ -173,6 +173,13 @@
   height: 100%;
 }
 
+.usericon {
+  margin-left: -1.5rem;
+  margin-right: 0;
+  margin-bottom: -1rem;
+  background-color: rgba(255, 255, 255, 0);
+}
+
 .markdownanswer h1,
 .markdownanswer h2,
 .markdownanswer h3 {
