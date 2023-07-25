@@ -144,10 +144,10 @@ export default function Home() {
                   icon = (
                     <Image
                       key={index}
-                      src="/bot-image.png"
+                      src="/bot.png"
                       alt="AI"
-                      width="40"
-                      height="40"
+                      width="80"
+                      height="80"
                       className={styles.boticon}
                       priority
                     />
@@ -155,16 +155,26 @@ export default function Home() {
                   className = styles.apimessage;
                 } else {
                   icon = (
+                    <div
+                      style={{
+                        width: '80px',
+                        height: '57px',
+                        minWidth: '80px',
+                        maxWidth: '80px',
+                        marginRight: '16px',
+                      }}
+                    ></div>
+                  ); /*(
                     <Image
                       key={index}
-                      src="/CWAiW_l.png"
+                      src=""
                       alt="Me"
                       width="80"
                       height="80"
                       className={styles.usericon}
                       priority
                     />
-                  );
+                  );*/
                   // The latest message sent by the user will be animated while waiting for a response
                   className =
                     loading && index === messages.length - 1
