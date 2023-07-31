@@ -9,12 +9,11 @@ import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
 /* Name of directory to retrieve your files from 
    Make sure to add your PDF files inside the 'docs' folder
 */
-const filePath = 'docs';
 
-export const run = async () => {
+export default async function run(filePath: string) {
   try {
     /*load raw docs from the all files in the directory */
-    const directoryLoader = new DirectoryLoader(filePath, {
+    const directoryLoader = new DirectoryLoader('docs/', {
       '.pdf': (path) => new PDFLoader(path),
     });
 
@@ -45,9 +44,4 @@ export const run = async () => {
     console.log('error', error);
     throw new Error('Failed to ingest your data');
   }
-};
-
-(async () => {
-  await run();
-  console.log('ingestion complete');
-})();
+}

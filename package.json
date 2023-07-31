@@ -18,8 +18,10 @@
     "@microsoft/fetch-event-source": "^2.0.1",
     "@pinecone-database/pinecone": "0.0.14",
     "@radix-ui/react-accordion": "^1.1.1",
+    "axios": "^1.4.0",
     "clsx": "^1.2.1",
     "dotenv": "^16.0.3",
+    "formidable": "^3.5.0",
     "langchain": "0.0.82",
     "lucide-react": "^0.125.0",
     "next": "13.2.3",
@@ -30,6 +32,7 @@
     "tailwind-merge": "^1.10.0"
   },
   "devDependencies": {
+    "@types/formidable": "^3.4.0",
     "@types/node": "^18.14.6",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",

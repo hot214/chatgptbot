@@ -123,48 +123,38 @@ export default function Home() {
   return (
     <>
       {/* <Layout> */}
-      <div className="mx-auto flex flex-col gap-4">
-        <div className="flex items-center justify-center mt-12">
-          <Image
-            src="/CWAiW_l.png"
-            alt="AI"
-            width="150"
-            height="100"
-            className={styles.boticon}
-            priority
-          />
-        </div>
-        <main className={styles.main}>
-          <div className={styles.cloud}>
-            <div ref={messageListRef} className={styles.messagelist}>
-              {messages.map((message, index) => {
-                let icon;
-                let className;
-                if (message.type === 'apiMessage') {
-                  icon = (
-                    <Image
-                      key={index}
-                      src="/bot.png"
-                      alt="AI"
-                      width="80"
-                      height="80"
-                      className={styles.boticon}
-                      priority
-                    />
-                  );
-                  className = styles.apimessage;
-                } else {
-                  icon = (
-                    <div
-                      style={{
-                        width: '80px',
-                        height: '57px',
-                        minWidth: '80px',
-                        maxWidth: '80px',
-                        marginRight: '16px',
-                      }}
-                    ></div>
-                  ); /*(
+      <main className={styles.main} key={'Home'}>
+        <div className={styles.cloud}>
+          <div ref={messageListRef} className={styles.messagelist}>
+            {messages.map((message, index) => {
+              let icon;
+              let className;
+              if (message.type === 'apiMessage') {
+                icon = (
+                  <Image
+                    key={`chatBotLogo-${index}`}
+                    src="/bot.png"
+                    alt="AI"
+                    width="80"
+                    height="80"
+                    className={styles.boticon}
+                    priority
+                  />
+                );
+                className = styles.apimessage;
+              } else {
+                icon = (
+                  <div
+                    key={`humanLogo-${index}`}
+                    style={{
+                      width: '80px',
+                      height: '57px',
+                      minWidth: '80px',
+                      maxWidth: '80px',
+                      marginRight: '16px',
+                    }}
+                  ></div>
+                ); /*(
                     <Image
                       key={index}
                       src=""
@@ -175,107 +165,106 @@ export default function Home() {
                       priority
                     />
                   );*/
-                  // The latest message sent by the user will be animated while waiting for a response
-                  className =
-                    loading && index === messages.length - 1
-                      ? styles.usermessagewaiting
-                      : styles.usermessage;
-                }
-                return (
-                  <>
-                    <div key={`chatMessage-${index}`} className={className}>
-                      {icon}
-                      <div className={styles.markdownanswer}>
-                        <ReactMarkdown linkTarget="_blank">
-                          {message.message}
-                        </ReactMarkdown>
-                      </div>
+                // The latest message sent by the user will be animated while waiting for a response
+                className =
+                  loading && index === messages.length - 1
+                    ? styles.usermessagewaiting
+                    : styles.usermessage;
+              }
+              return (
+                <>
+                  <div key={`chatMessage-${index}`} className={className}>
+                    {icon}
+                    <div className={styles.markdownanswer}>
+                      <ReactMarkdown linkTarget="_blank">
+                        {message.message}
+                      </ReactMarkdown>
                     </div>
-                    {message.sourceDocs && (
-                      <div className="p-5" key={`sourceDocsAccordion-${index}`}>
-                        {
-                          <Accordion
-                            type="single"
-                            collapsible
-                            className="flex-col"
-                          >
-                            {message.sourceDocs.map((doc, index) => (
-                              <div key={`messageSourceDocs-${index}`}>
-                                <AccordionItem value={`item-${index}`}>
-                                  <AccordionTrigger>
-                                    <h3>Source {index + 1}</h3>
-                                  </AccordionTrigger>
-                                  <AccordionContent>
-                                    <ReactMarkdown linkTarget="_blank">
-                                      {doc.pageContent}
-                                    </ReactMarkdown>
-                                    <p className="mt-2">
-                                      <b>Source:</b> {doc.metadata.source}
-                                    </p>
-                                  </AccordionContent>
-                                </AccordionItem>
-                              </div>
-                            ))}
-                          </Accordion>
-                        }
-                      </div>
-                    )}
-                  </>
-                );
-              })}
-            </div>
-          </div>
-          <div className={styles.center}>
-            <div className={styles.cloudform}>
-              <form onSubmit={handleSubmit}>
-                <textarea
-                  disabled={loading}
-                  onKeyDown={handleEnter}
-                  ref={textAreaRef}
-                  autoFocus={false}
-                  rows={1}
-                  maxLength={512}
-                  id="userInput"
-                  name="userInput"
-                  placeholder={
-                    loading
-                      ? 'Waiting for response...'
-                      : 'What is the condition code MIMA?'
-                  }
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className={styles.textarea}
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={styles.generatebutton}
-                >
-                  {loading ? (
-                    <div className={styles.loadingwheel}>
-                      <LoadingDots color="#000" />
+                  </div>
+                  {message.sourceDocs && (
+                    <div className="p-5" key={`sourceDocsAccordion-${index}`}>
+                      {
+                        <Accordion
+                          type="single"
+                          collapsible
+                          className="flex-col"
+                        >
+                          {message.sourceDocs.map((doc, index) => (
+                            <div key={`messageSourceDocs-${index}`}>
+                              <AccordionItem value={`item-${index}`}>
+                                <AccordionTrigger>
+                                  <h3>Source {index + 1}</h3>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                  <ReactMarkdown linkTarget="_blank">
+                                    {doc.pageContent}
+                                  </ReactMarkdown>
+                                  <p className="mt-2">
+                                    <b>Source:</b> {doc.metadata.source}
+                                  </p>
+                                </AccordionContent>
+                              </AccordionItem>
+                            </div>
+                          ))}
+                        </Accordion>
+                      }
                     </div>
-                  ) : (
-                    // Send icon SVG in input field
-                    <svg
-                      viewBox="0 0 20 20"
-                      className={styles.svgicon}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                    </svg>
                   )}
-                </button>
-              </form>
-            </div>
+                </>
+              );
+            })}
           </div>
-          {error && (
-            <div className="border border-red-400 rounded-md p-4">
-              <p className="text-red-500">{error}</p>
-            </div>
-          )}
-        </main>
-      </div>
+        </div>
+        <div className={styles.center}>
+          <div className={styles.cloudform}>
+            <form onSubmit={handleSubmit}>
+              <textarea
+                disabled={loading}
+                onKeyDown={handleEnter}
+                ref={textAreaRef}
+                autoFocus={false}
+                rows={1}
+                maxLength={512}
+                id="userInput"
+                name="userInput"
+                placeholder={
+                  loading
+                    ? 'Waiting for response...'
+                    : 'What is the condition code MIMA?'
+                }
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className={styles.textarea}
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className={styles.generatebutton}
+              >
+                {loading ? (
+                  <div className={styles.loadingwheel}>
+                    <LoadingDots color="#000" />
+                  </div>
+                ) : (
+                  // Send icon SVG in input field
+                  <svg
+                    viewBox="0 0 20 20"
+                    className={styles.svgicon}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                  </svg>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+        {error && (
+          <div className="border border-red-400 rounded-md p-4">
+            <p className="text-red-500">{error}</p>
+          </div>
+        )}
+      </main>
       {/* <footer className="m-auto p-4">
           <a href="https://twitter.com/mayowaoshin">
             Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).

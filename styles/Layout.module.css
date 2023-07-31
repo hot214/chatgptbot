@@ -1,0 +1,10 @@
+.logo {
+  margin-right: 1rem;
+  border-radius: 0.1rem;
+  width: auto;
+  height: 100%;
+}
+
+.active {
+  @apply bg-slate-600 text-gray-200 hover:bg-slate-700 hover:text-gray-200;
+}
