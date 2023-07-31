@@ -10,7 +10,6 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export const config = {
   api: {
     bodyParser: false,
-    keepExtensions: true,
   },
 };
 
@@ -22,7 +21,7 @@ export default async function handler(
     //parsing the file
     const file = await new Promise<formidable.File | null>(
       (resolve, reject) => {
-        const form = formidable({ uploadDir: 'docs' });
+        const form = formidable({ uploadDir: 'docs', keepExtensions: true });
         form.parse(req, (err, fields, files) => {
           if (err) {
             console.error('Error parsing form data:', err);
@@ -42,7 +41,7 @@ export default async function handler(
     }
 
     const filepath = JSON.parse(JSON.stringify(file))[0]['filepath'];
-    fs.renameSync(filepath, 'docs/source.pdf');
+    // fs.renameSync(filepath, 'docs/source.pdf');
 
     console.log(filepath);
     await run(filepath);
