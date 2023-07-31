@@ -41,14 +41,20 @@ export default async function handler(
       return;
     }
 
+    console.log(file);
     const filepath = JSON.parse(JSON.stringify(file))[0]['filepath'];
+    const dstpath =
+      'lib/' + JSON.parse(JSON.stringify(file))[0]['originalFilename'];
     // fs.renameSync(filepath, 'docs/source.pdf');
 
     console.log(filepath);
     await run(filepath);
-    // await sleep(3000);
-    fs.rmSync(filepath);
+
+    if (!fs.existsSync('lib/')) fs.mkdirSync('lib');
+
+    fs.renameSync(filepath, dstpath);
     fs.rmdirSync('docs');
+
     res.status(200).send('success');
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });

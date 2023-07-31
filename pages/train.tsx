@@ -1,11 +1,27 @@
 import styles from '@/styles/Train.module.css';
 import axios from 'axios';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 export default function Train() {
   const [isTraining, setIsTraining] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [filename, setFilename] = useState<string>('');
+  const [docs, setDocs] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetchDoc();
+  }, []);
+
+  const fetchDoc = async () => {
+    try {
+      const response = await fetch('api/doc');
+      const data = await response.json();
+      setDocs(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setDocs([]);
+    }
+  };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -37,6 +53,10 @@ export default function Train() {
       });
       response.then((res) => {
         setProgress(100);
+        fetchDoc();
+        setTimeout(() => {
+          setIsTraining(false);
+        }, 1000);
       });
       console.log('File upload successful!', response);
     } catch (error) {
@@ -48,6 +68,7 @@ export default function Train() {
     <>
       <main className={styles.main} key={'Home'}>
         <div className="flex flex-col items-center justify-center w-full">
+          {/* Drop Zone */}
           <label
             htmlFor="dropzone-file"
             className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-800 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-100 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-600 dark:hover:bg-gray-300"
@@ -81,6 +102,7 @@ export default function Train() {
             />
           </label>
 
+          {/* Progress */}
           <div
             className="w-full mt-10 rounded-[15px] bg-[#88888866] px-[40px] "
             style={{ display: isTraining ? 'block' : 'none' }}
@@ -93,6 +115,38 @@ export default function Train() {
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
+          </div>
+
+          {/* Progress */}
+
+          <div className="w-[80%] overflow-x-auto shadow-md sm:rounded-lg mt-10">
+            <table className="w-full text-sm text-left text-slate-300">
+              <thead className="text-md text-slate-600 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    NAME
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    STATUS
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    EDITED ON
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {docs.map((doc, index) => (
+                  <tr
+                    key={`doc-${index}`}
+                    className="bg-white border-b  hover:bg-gray-50 text-slate-600 text-md"
+                  >
+                    <td className="py-4 px-6 ">{doc}</td>
+                    <td className="py-4 px-6 ">LEARNED</td>
+                    <td className="py-4 px-6 ">N/A</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
