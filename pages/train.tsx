@@ -38,7 +38,7 @@ export default function Train() {
       response.then((res) => {
         setProgress(100);
       });
-      console.log('File upload successful!', response.data);
+      console.log('File upload successful!', response);
     } catch (error) {
       console.error('File upload failed.', error);
     }
