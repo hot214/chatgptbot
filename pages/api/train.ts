@@ -19,6 +19,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     //parsing the file
+    if (!fs.existsSync('docs/')) fs.mkdirSync('docs');
     const file = await new Promise<formidable.File | null>(
       (resolve, reject) => {
         const form = formidable({ uploadDir: 'docs', keepExtensions: true });
@@ -47,6 +48,7 @@ export default async function handler(
     await run(filepath);
     // await sleep(3000);
     fs.rmSync(filepath);
+    fs.rmdirSync('docs');
     res.status(200).send('success');
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
