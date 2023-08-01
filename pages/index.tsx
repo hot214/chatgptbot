@@ -103,7 +103,12 @@ export default function Home() {
       setLoading(false);
 
       //scroll to bottom
-      messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
+      setTimeout(() => {
+        messageListRef.current?.scrollTo(
+          0,
+          messageListRef.current.scrollHeight,
+        );
+      }, 0);
     } catch (error) {
       setLoading(false);
       setError('An error occurred while fetching the data. Please try again.');
@@ -118,6 +123,18 @@ export default function Home() {
     } else if (e.key == 'Enter') {
       e.preventDefault();
     }
+  };
+
+  const scrollToBottom = () => {
+    if (messageListRef.current) {
+      const container = messageListRef.current;
+      container.scrollTop = container.scrollHeight;
+    }
+  };
+
+  const getFileName = (path: string) => {
+    path = path.replaceAll('\\', '/');
+    return path.split('/').reverse()[0];
   };
 
   return (
@@ -190,7 +207,7 @@ export default function Home() {
                         <b>Reference: &nbsp;</b>
                         {message.sourceDocs.map((doc, index) => (
                           <text className="mt-2" key={`sourceDocItem-${index}`}>
-                            {doc.metadata.source.split('\\').reverse()[0]}
+                            {getFileName(doc.metadata.source)}
                           </text>
                         ))}
                       </p>
