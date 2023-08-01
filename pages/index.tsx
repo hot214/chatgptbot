@@ -65,6 +65,11 @@ export default function Home() {
       ],
     }));
 
+    //scroll to bottom
+    setTimeout(() => {
+      messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
+    }, 0);
+
     setLoading(true);
     setQuery('');
 
@@ -199,7 +204,7 @@ export default function Home() {
 
                       {message.sourceDocs && (
                         <div
-                          className="text-gray text-xs float-right mr-[-100px] text-gray-600 bg-[#A353BD55] rounded-full px-5 py-1 inline-block relative top-4"
+                          className="text-gray text-xs float-right mr-[-100px] text-[#885555] bg-[#A353BD55] rounded-full px-5 py-1 inline-block relative top-4"
                           key={`sourceDoc-${index}`}
                         >
                           <p>
