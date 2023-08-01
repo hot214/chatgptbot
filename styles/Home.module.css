@@ -84,7 +84,7 @@
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  border-radius: 0.5rem;
+  padding-right: 5px;
 }
 
 .messagelistloading {
@@ -103,7 +103,7 @@
 .usermessagewaiting {
   padding: 1.5rem;
   color: #000;
-  background: linear-gradient(to left, #07080938, #1a1c2024, #07080936);
+  background: linear-gradient(to left, #db70fe38, #db70fe60, #db70fe38);
   background-size: 200% 200%;
   background-position: -100% 0;
   animation: loading-gradient 2s ease-in-out infinite;
@@ -121,7 +121,7 @@
 }
 
 .apimessage {
-  background: #f9fafb;
+  background: #db70fe22;
   padding: 1.5rem;
   color: #000;
   animation: fadein 0.5s;
@@ -140,6 +140,8 @@
 .usermessage,
 .usermessagewaiting {
   display: flex;
+  border-radius: 0.5rem;
+  margin: 0px 0px 5px;
 }
 
 .markdownanswer {
@@ -210,6 +212,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  padding: 5px;
 }
 
 .pointsnormal {

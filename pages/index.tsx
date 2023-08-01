@@ -196,52 +196,27 @@ export default function Home() {
                       <ReactMarkdown linkTarget="_blank">
                         {message.message}
                       </ReactMarkdown>
+
+                      {message.sourceDocs && (
+                        <div
+                          className="text-gray text-xs float-right mr-[-100px] text-gray-600 bg-[#A353BD55] rounded-full px-5 py-1 inline-block relative top-4"
+                          key={`sourceDoc-${index}`}
+                        >
+                          <p>
+                            <b>Reference: &nbsp;</b>
+                            {message.sourceDocs.map((doc, index) => (
+                              <text
+                                className="mt-2"
+                                key={`sourceDocItem-${index}`}
+                              >
+                                {getFileName(doc.metadata.source)}
+                              </text>
+                            ))}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
-                  {message.sourceDocs && (
-                    <div
-                      className="p-2 pl-10 bg-gray-600 text-white"
-                      key={`sourceDoc-${index}`}
-                    >
-                      <p>
-                        <b>Reference: &nbsp;</b>
-                        {message.sourceDocs.map((doc, index) => (
-                          <text className="mt-2" key={`sourceDocItem-${index}`}>
-                            {getFileName(doc.metadata.source)}
-                          </text>
-                        ))}
-                      </p>
-                    </div>
-                    /*
-                    <div className="p-5" key={`sourceDocsAccordion-${index}`}>
-                      {
-                        <Accordion
-                          type="single"
-                          collapsible
-                          className="flex-col"
-                        >
-                          {message.sourceDocs.map((doc, index) => (
-                            <div key={`messageSourceDocs-${index}`}>
-                              <AccordionItem value={`item-${index}`}>
-                                <AccordionTrigger>
-                                  <h3>Source {index + 1}</h3>
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                  <ReactMarkdown linkTarget="_blank">
-                                    {doc.pageContent}
-                                  </ReactMarkdown>
-                                  <p className="mt-2">
-                                    <b>Source:</b> {doc.metadata.source}
-                                  </p>
-                                </AccordionContent>
-                              </AccordionItem>
-                            </div>
-                          ))}
-                        </Accordion>
-                      }
-                    </div>
-                    */
-                  )}
                 </>
               );
             })}

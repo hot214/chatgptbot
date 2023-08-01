@@ -37,7 +37,7 @@ export default function Layout({ children }: LayoutProps) {
               type="button"
               className={`
                 ${isActive('/')} + \
-                w-[180px] h-[50px] text-lg font-medium text-gray-900 bg-white hover:bg-gray-100 hover:text-gray-900 rounded-l-full
+                w-[180px] h-[50px] text-lg font-medium text-gray-900 bg-white hover:bg-gray-100 hover:text-gray-900 rounded-l-full shadow-lg
                 `}
             >
               Chat
@@ -49,7 +49,7 @@ export default function Layout({ children }: LayoutProps) {
               type="button"
               className={`
                 ${isActive('/train')} + \
-                w-[180px] h-[50px] text-lg font-medium text-gray-900 bg-white hover:bg-gray-100 hover:text-gray-900 rounded-r-full
+                w-[180px] h-[50px] text-lg font-medium text-gray-900 bg-white hover:bg-gray-100 hover:text-gray-900 rounded-r-full shadow-lg
                 `}
             >
               Content
