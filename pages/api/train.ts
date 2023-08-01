@@ -22,7 +22,7 @@ export default async function handler(
     if (!fs.existsSync('docs/')) fs.mkdirSync('docs');
     const file = await new Promise<formidable.File | null>(
       (resolve, reject) => {
-        const form = formidable({ uploadDir: 'docs', keepExtensions: true });
+        const form = formidable({ keepExtensions: true });
         form.parse(req, (err, fields, files) => {
           if (err) {
             console.error('Error parsing form data:', err);
@@ -41,19 +41,23 @@ export default async function handler(
       return;
     }
 
-    console.log(file);
-    const filepath = JSON.parse(JSON.stringify(file))[0]['filepath'];
-    const dstpath =
+    const originName = JSON.parse(JSON.stringify(file))[0]['originalFilename'];
+    const filePath = JSON.parse(JSON.stringify(file))[0]['filepath'];
+    const docPath = 'docs/' + originName;
+    const dstPath =
       'lib/' + JSON.parse(JSON.stringify(file))[0]['originalFilename'];
     // fs.renameSync(filepath, 'docs/source.pdf');
 
-    console.log(filepath);
-    await run(filepath);
+    console.log(filePath, docPath, dstPath);
+
+    fs.copyFileSync(filePath, docPath);
+    await run();
 
     if (!fs.existsSync('lib/')) fs.mkdirSync('lib');
 
-    fs.renameSync(filepath, dstpath);
+    fs.renameSync(docPath, dstPath);
     fs.rmdirSync('docs');
+    fs.unlinkSync(filePath);
 
     res.status(200).send('success');
   } else {

@@ -26,11 +26,11 @@ export const makeChain = (vectorstore: PineconeStore) => {
 
   const chain = ConversationalRetrievalQAChain.fromLLM(
     model,
-    vectorstore.asRetriever(),
+    vectorstore.asRetriever(1),
     {
       qaTemplate: QA_PROMPT,
       questionGeneratorTemplate: CONDENSE_PROMPT,
-      returnSourceDocuments: false, //The number of source documents returned is 4 by default
+      returnSourceDocuments: true, //The number of source documents returned is 4 by default
     },
   );
   return chain;

@@ -10,7 +10,7 @@ import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
    Make sure to add your PDF files inside the 'docs' folder
 */
 
-export default async function run(filePath: string) {
+export default async function run() {
   try {
     /*load raw docs from the all files in the directory */
     const directoryLoader = new DirectoryLoader('docs/', {

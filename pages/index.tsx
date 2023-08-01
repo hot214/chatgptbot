@@ -182,6 +182,20 @@ export default function Home() {
                     </div>
                   </div>
                   {message.sourceDocs && (
+                    <div
+                      className="p-2 pl-10 bg-gray-600 text-white"
+                      key={`sourceDoc-${index}`}
+                    >
+                      <p>
+                        <b>Reference: &nbsp;</b>
+                        {message.sourceDocs.map((doc, index) => (
+                          <text className="mt-2" key={`sourceDocItem-${index}`}>
+                            {doc.metadata.source.split('\\').reverse()[0]}
+                          </text>
+                        ))}
+                      </p>
+                    </div>
+                    /*
                     <div className="p-5" key={`sourceDocsAccordion-${index}`}>
                       {
                         <Accordion
@@ -209,6 +223,7 @@ export default function Home() {
                         </Accordion>
                       }
                     </div>
+                    */
                   )}
                 </>
               );
